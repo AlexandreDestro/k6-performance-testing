@@ -6,12 +6,15 @@ import { Trend, Rate } from 'k6/metrics';
 
 export const getContactsDuration = new Trend('get_contacts', true);
 export const RateContentOK = new Rate('content_OK');
+export const RateRedirects = new Rate('redirects_rate');
 
 export const options = {
   thresholds: {
     http_req_failed: ['rate<0.30'],
     get_contacts: ['p(99)<500'],
-    content_OK: ['rate>0.95']
+    content_OK: ['rate>0.95'],
+    redirects_rate: ['rate<0.10'],
+    http_req_duration: ['p(95)<800'] 
   },
   stages: [
     { duration: '12s', target: 2 },
@@ -37,14 +40,16 @@ export default function () {
   };
 
   const OK = 200;
+  const REDIRECT = 302;
 
   const res = http.get(`${baseUrl}`, params);
 
   getContactsDuration.add(res.timings.duration);
-
   RateContentOK.add(res.status === OK);
+  RateRedirects.add(res.status === REDIRECT);
 
   check(res, {
-    'GET Contacts - Status 200': () => res.status === OK
+    'GET Contacts - Status 200': () => res.status === OK,
+    'Sem redirecionamento inesperado': () => res.status !== REDIRECT
   });
 }
