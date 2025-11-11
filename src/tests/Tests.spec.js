@@ -14,9 +14,10 @@ export const options = {
     content_OK: ['rate>0.95']
   },
   stages: [
-    { duration: '3s', target: 2 },
-    { duration: '3s', target: 6 },
-    { duration: '3s', target: 9 }
+    { duration: '3s', target: 3 },
+    { duration: '3s', target: 9 },
+    { duration: '3s', target: 30 },
+    { duration: '3s', target: 100 }
   ]
 };
 
@@ -28,7 +29,7 @@ export function handleSummary(data) {
 }
 
 export default function () {
-  const baseUrl = 'https://test.k6.io/';
+  const baseUrl = 'https://www1.satc.edu.br/portais/acesso/public/#/';
 
   const params = {
     headers: {
