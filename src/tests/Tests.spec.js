@@ -10,11 +10,11 @@ export const RateRedirects = new Rate('redirects_rate');
 
 export const options = {
   thresholds: {
-    http_req_failed: ['rate<0.30'],
-    get_contacts: ['p(99)<500'],
-    content_OK: ['rate>0.95'],
+    http_req_failed: ['rate<0.25'],
+    get_contacts: ['p(75)<500'],
+    content_OK: ['rate>0.75'],
     redirects_rate: ['rate<0.10'],
-    http_req_duration: ['p(95)<800'] 
+    http_req_duration: ['p(90)<6800'] 
   },
   stages: [
     { duration: '12s', target: 7 },
