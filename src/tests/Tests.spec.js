@@ -17,9 +17,9 @@ export const options = {
     http_req_duration: ['p(95)<800'] 
   },
   stages: [
-    { duration: '12s', target: 2 },
-    { duration: '12s', target: 4 },
-    { duration: '12s', target: 8 }
+    { duration: '12s', target: 7 },
+    { duration: '12s', target: 28 },
+    { duration: '12s', target: 92 }
   ]
 };
 
